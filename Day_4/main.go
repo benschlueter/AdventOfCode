@@ -80,7 +80,7 @@ func main() {
 
 		//  a .... b
 		//      c .....d
-		if b >= c || d >= a {
+		if (b >= c && b <= d) || (d >= a && d <= b) {
 			accumulate += 1
 			fmt.Println(splitLine, result1, result2, "match")
 			continue
