@@ -69,7 +69,6 @@ func task1() {
 				currentMaxV = finalArray[j][i]
 				b[j][i] = true
 			}
-			// fmt.Println(j, i, currentMaxV, finalArray[j][i])
 		}
 	}
 	cnt := 0
@@ -90,89 +89,67 @@ func task1() {
 }
 
 func calcScoreRight(x, y int, finalArray [][]int) int {
-	currentMax := -1
-	finalScore := 1
+	currentHeight := finalArray[y][x]
 
 	tmpScore := 0
 	for j := x + 1; j < len(finalArray); j++ {
-		if finalArray[y][j] >= currentMax {
-			currentMax = finalArray[y][j]
+		if finalArray[y][j] < currentHeight {
 			tmpScore += 1
-		}
-		/* 		if currentMax > finalArray[y][x] {
+		} else {
+			tmpScore += 1
 			break
-		} */
+		}
 	}
-	if tmpScore != 0 {
-		finalScore *= tmpScore
-	}
-	fmt.Println("right score", finalScore)
-	return finalScore
+
+	return tmpScore
 }
 
 func calcScoreLeft(x, y int, finalArray [][]int) int {
-	currentMax := -1
-	finalScore := 1
+	currentHeight := finalArray[y][x]
 
 	tmpScore := 0
 	for j := x - 1; j >= 0; j-- {
-		if finalArray[y][j] >= currentMax {
-			currentMax = finalArray[y][j]
+		if finalArray[y][j] < currentHeight {
 			tmpScore += 1
-		}
-		/* 		if currentMax > finalArray[y][x] {
+		} else {
+			tmpScore += 1
 			break
-		} */
+		}
 	}
-	if tmpScore != 0 {
-		finalScore *= tmpScore
-	}
-	fmt.Println("left score", finalScore)
-	return finalScore
+
+	return tmpScore
 }
 
 func calcScoreUp(x, y int, finalArray [][]int) int {
-	currentMax := -1
-	finalScore := 1
+	currentHeight := finalArray[y][x]
 
 	tmpScore := 0
 	for j := y - 1; j >= 0; j-- {
-		if finalArray[j][x] >= currentMax {
-			currentMax = finalArray[j][x]
+		if finalArray[j][x] < currentHeight {
 			tmpScore += 1
-		}
-		/* 		if currentMax > finalArray[y][x] {
+		} else {
+			tmpScore += 1
 			break
-		} */
-	}
-	if tmpScore != 0 {
-		finalScore *= tmpScore
+		}
 	}
 
-	fmt.Println("up score", finalScore)
-	return finalScore
+	return tmpScore
 }
 
 func calcScoreDown(x, y int, finalArray [][]int) int {
-	currentMax := -1
-	finalScore := 1
+	currentHeight := finalArray[y][x]
 
 	tmpScore := 0
 	for j := y + 1; j < len(finalArray); j++ {
-		if finalArray[j][x] >= currentMax {
-			currentMax = finalArray[j][x]
+		if finalArray[j][x] < currentHeight {
 			tmpScore += 1
-		}
-		/* 		if currentMax > finalArray[y][x] {
+		} else {
+			tmpScore += 1
 			break
-		} */
-	}
-	if tmpScore != 0 {
-		finalScore *= tmpScore
+		}
 	}
 
-	fmt.Println("down score", finalScore)
-	return finalScore
+	return tmpScore
 }
 
 func calcScore(x, y int, finalArray [][]int) int {
@@ -204,7 +181,6 @@ func main() {
 		}
 		finalArray = append(finalArray, tmpArr)
 	}
-	fmt.Println(finalArray)
 	cnt := 0
 	for j := 0; j < len(finalArray); j++ {
 		for i := 0; i < len(finalArray); i++ {
@@ -215,8 +191,6 @@ func main() {
 	}
 
 	fmt.Printf("Final count %d\n", cnt)
-	fmt.Println("score,", calcScore(2, 3, finalArray))
-	fmt.Println("score,", calcScore(2, 1, finalArray))
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
