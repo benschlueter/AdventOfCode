@@ -170,18 +170,23 @@ func main() {
 	m7 := generateMonkey(7, 3, 5, 17, 5, 0, []int{81, 58})
 	monkeyList = append(monkeyList, m7)
 
-	monkeyList = testCase()
+	// monkeyList = testCase()
 
-	for i := 0; i < 20; i++ {
+	magicConstant := 1
+	for _, v := range monkeyList {
+		magicConstant *= v.divisibleBy
+	}
+
+	for i := 0; i < 10000; i++ {
 		for _, monkey := range monkeyList {
 			for len(monkey.items) > 0 {
 				item := <-monkey.items
 				score := monkey.operation(item)
 				// score /= 3
 				if (score % monkey.divisibleBy) == 0 {
-					monkeyList[monkey.tCase].items <- score
+					monkeyList[monkey.tCase].items <- (score % magicConstant)
 				} else {
-					monkeyList[monkey.fCase].items <- score
+					monkeyList[monkey.fCase].items <- (score % magicConstant)
 				}
 				monkey.activity += 1
 			}
