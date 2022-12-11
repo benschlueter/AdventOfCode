@@ -172,6 +172,8 @@ func main() {
 
 	// monkeyList = testCase()
 
+	// theoretically we would only need to multiply the prime factors of the numbers
+	// but this here is easier to implement, and they are all prime
 	magicConstant := 1
 	for _, v := range monkeyList {
 		magicConstant *= v.divisibleBy
