@@ -50,6 +50,15 @@ var (
 	directions = [4][2]int{{0, 1}, {1, 0}, {-1, 0}, {0, -1}}
 )
 
+func reset(arr [][]*node) {
+	for _, tmp := range arr {
+		for _, v := range tmp {
+			v.stepsToThisNode = 100000000
+			v.visited = false
+		}
+	}
+}
+
 func traverse(arr [][]*node, current, end [2]int, step int) {
 	xlength := len(arr[0])
 	ylength := len(arr)
@@ -111,8 +120,19 @@ func main() {
 		array = append(array, tmp)
 		i += 1
 	}
-	traverse(array, start, end, 0)
-	fmt.Println(array[end[1]][end[0]].stepsToThisNode)
+	currentMin := 10000000000
+	for _, tmp := range array {
+		for _, v := range tmp {
+			if v.value == 1 {
+				reset(array)
+				traverse(array, [2]int{v.xPos, v.yPos}, end, 0)
+				if array[end[1]][end[0]].stepsToThisNode < currentMin {
+					currentMin = array[end[1]][end[0]].stepsToThisNode
+				}
+			}
+		}
+	}
+	fmt.Println(currentMin)
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
